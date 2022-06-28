@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                   }
                   if (state is GetForeCastForFiveDaysState) {
                     weather!.forecast = state.weathers;
-
+      
                     return SizedBox(
                         height: 550.h,
                         child: WeatherWidget(

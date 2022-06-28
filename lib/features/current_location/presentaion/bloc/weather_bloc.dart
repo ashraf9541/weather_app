@@ -35,9 +35,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           });
         } else {
           emit(const Error("please enable location service"));
-          await [Permission.location].request().then(
-                (value) => add(GetCurrentLocationWeatherEvent()),
-              );
+          await [Permission.location].request();
+               
+              
         }
       }
       if (event is GetForeCastForFiveDaysEvent) {

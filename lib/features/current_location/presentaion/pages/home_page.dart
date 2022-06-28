@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:weather_app_ashraf_harba/core/const/cities.dart';
 import 'package:weather_app_ashraf_harba/features/current_location/presentaion/bloc/weather_bloc.dart';
 import 'package:weather_app_ashraf_harba/features/current_location/presentaion/widgets/weather_widget.dart';
@@ -72,6 +73,17 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
                 builder: (context, state) {
+                        if (state is Error){
+                    return GestureDetector(
+                     onTap: (){
+                      if (state.error.contains("please enable location service")){
+                          openAppSettings();
+                      }
+                     },
+                      child: SizedBox(
+                        height: 200.h,
+                        child: Center(child: Text(state.error,style: TextStyle(decoration: TextDecoration.underline,fontSize: 20.sp),))));
+                  }
                   if (state is GetCurrentLocationWeatherState) {
                     weather = state.weather;
 

@@ -22,8 +22,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     on<WeatherEvent>((event, emit) async {
       if (event is GetCurrentLocationWeatherEvent) {
         emit(Loading());
-        final serviceEnabled = await Permission.location.isGranted;
-        if (serviceEnabled) {
+        final serviceEnabled = await Permission.location.request();
+        if (serviceEnabled.isGranted) {
           final position = await geolocatorPlatform.getCurrentPosition();
           var response = await currentLocationWeatherUseCase
               .getCurrentLocationWeatherUsecase(
